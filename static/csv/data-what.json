@@ -1,0 +1,70 @@
+{
+    "name": "Adapting What?",
+    "children": [
+		{
+			"name": "System  Input",
+			"children": [
+				{
+					"name": "Interface",
+					"children": [	
+						{"name": "Drexel20XX", "size": 1},
+						{"name": "STricker2012", "size": 1},
+						{"name": "Xu2012", "size": 1},			
+						{"name": "Hervas2011", "size": 1}							
+					]
+				},
+				{
+					"name": "Interaction Modalities",
+					"children": [
+						{"name": "ArtSense", "size": 1}
+					]
+				}
+			]
+		},
+		{
+			"name": "System  Output",
+			"children": [
+				{
+					"name": "Content",
+					"children": [	
+						{"name": "Beadle1997", "size": 1},
+						{"name": "Bühling2012", "size": 1}											
+					]
+				},
+				{
+					"name": "Information Presentation",
+					"children": [
+						{
+							"name": "Spatial Arrangement",
+							"children": [	
+								{"name": "Rosten2005", "size": 1},
+								{"name": "Grasset2012", "size": 1},
+								{"name": "Bordes2011", "size": 1}						
+							]
+						},
+						{
+							"name": "Appearance Adaptation",
+							"children": [								
+								{"name": "Kalkofen2013", "size": 1},
+								{"name": "Sinclair2001", "size": 1},								
+								{"name": "MacIntyre2007", "size": 1},
+								{"name": " Bordes2011", "size": 1},
+								{"name": "Uratani2005", "size": 1},
+								{"name": " Beadle1997", "size": 1},
+								{"name": " Bühling2012", "size": 1},
+								{"name": " Drexel20XX", "size": 1},
+								{"name": "Kalkofen2009", "size": 1}
+							]
+						},
+						{
+							"name": "Amount of Data",
+							"children": [
+								{"name": "Julier2002", "size": 1}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
