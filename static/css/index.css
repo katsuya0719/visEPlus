@@ -19,11 +19,6 @@ text {
 	font-family: "Open Sans", Helvetica, Arial, sans-serif; 
 }
 
-rect {
-fill: none;
-stroke: #fff;
-}
-
 rect.parent,
 	.grandparent rect {
 		stroke-width: 2px;
@@ -51,4 +46,19 @@ fill: #aaa;
 	font-size: x-small;
 padding: 5px;
 	 font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis--x path {
+  display: none;
 }

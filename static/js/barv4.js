@@ -1,27 +1,24 @@
 var causes = ["wounds", "other", "disease"];
 
-var parseDate = d3.time.format("%m/%Y").parse;
+var parseDate = d3.timeParse("%m/%Y");
 
 var margin = {top: 20, right: 50, bottom: 30, left: 20},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width]);
+var x = d3.scaleOrdinal()
+    .range([0, width]);
 
-var y = d3.scale.linear()
-    .rangeRound([height, 0]);
+var y = d3.scaleLinear()
+    .range([height, 0]);
 
-var z = d3.scale.category10();
+var z = d3.scaleOrdinal(d3.schemeCategory10);
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickFormat(d3.time.format("%b"));
+var xAxis = d3.axisBottom(x)
+            .tickFormat(d3.timeFormat("%b"));
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("right");
+var yAxis = d3.axisRight(y)
+            .scale(y);
 
 var svg = d3.select("#bar").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -32,13 +29,13 @@ var svg = d3.select("#bar").append("svg")
 function barChart(csv){
   d3.tsv(csv, type, function(error, crimea) {
   if (error) throw error;
-  //console.log(crimea)
-  var layers = d3.layout.stack()(causes.map(function(c) {
+  /*
+  var layers = d3.stack()(causes.map(function(c) {
     return crimea.map(function(d) {
       return {x: d.date, y: d[c]};
     });
   }));
-  console.log(layers)
+  */
   x.domain(layers[0].map(function(d) { return d.x; }));
   y.domain([0, d3.max(layers[layers.length - 1], function(d) { return d.y0 + d.y; })]).nice();
 
