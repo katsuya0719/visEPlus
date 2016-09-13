@@ -1,5 +1,5 @@
-var width = 960,
-    height = 500,
+var width = 1200,
+    height = 600,
     radius = Math.min(width, height) / 2;
 
 var color = d3.scale.ordinal()
@@ -15,7 +15,7 @@ var labelArc = d3.svg.arc()
 
 var pie = d3.layout.pie()
     .sort(null)
-    .value(function(d) { return d.population; });
+    .value(function(d) { return d.electricity; });
 
 var svg = d3.select("#pie").append("svg")
     .attr("width", width)
@@ -23,8 +23,20 @@ var svg = d3.select("#pie").append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-d3.csv("data.csv", type, function(error, data) {
+function pieChart(csv){
+  d3.csv(csv, type, function(error, data) {
+    data.forEach(function(d){
+      if (d[""]==" "){
+        d.category = d.Subcategory;
+      }else if(d[""]!=" "){
+        d.category = d[""];
+      };
+      d.electricity= +d["Electricity [kWh]"];
+      //sumArr(data);
+    });
+
   if (error) throw error;
+  console.log(data);
 
   var g = svg.selectAll(".arc")
       .data(pie(data))
@@ -33,15 +45,22 @@ d3.csv("data.csv", type, function(error, data) {
 
   g.append("path")
       .attr("d", arc)
-      .style("fill", function(d) { return color(d.data.age); });
+      .style("fill", function(d) { return color(d.category); });
 
   g.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".35em")
-      .text(function(d) { return d.data.age; });
-});
+      .text(function(d) { return d.category; });
+  });
+};
+/*
+function sumArr(obj){
 
+};
+*/
 function type(d) {
   d.population = +d.population;
   return d;
 }
+
+pieChart("static/csv/energy.csv");

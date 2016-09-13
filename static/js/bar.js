@@ -38,7 +38,7 @@ function barChart(csv){
       return {x: d.date, y: d[c]};
     });
   }));
-  console.log(layers)
+  //console.log(layers)
   x.domain(layers[0].map(function(d) { return d.x; }));
   y.domain([0, d3.max(layers[layers.length - 1], function(d) { return d.y0 + d.y; })]).nice();
 
