@@ -1,4 +1,4 @@
-function hbarChart(csv){
+function hbarChart(csv,para,id){
     d3.csv(csv, function(d,i) {
         var arr = Object.keys(d).map(function (key) {return d[key]});
         d.room = arr[0];
@@ -6,6 +6,13 @@ function hbarChart(csv){
         d.Light = +d["Lighting [W/m2]"];
         d.People = +d["People [m2 per person]"];
         d.Plug = +d["Plug and Process [W/m2]"];
+        d.Glass = +d["Window Glass Area [m2]"];
+        d.Wall = +d["Gross Wall Area [m2]"];
+        if (d.Wall==0){
+            d.WWR=0
+        }else{
+            d.WWR=d.Glass/(d.Glass+d.Wall)*100;
+        };
         return d;
       }, function(error, data) {
         if (error) throw error;
@@ -18,28 +25,25 @@ function hbarChart(csv){
         });
     //console.log(data1);
 
-    ObjArraySort(data1,"area","DESC")
+    ObjArraySort(data1,para,"DESC")
 
-    console.log(data1)
     var axisMargin = 20,
             margin = 10,
             valueMargin = 4,
-            //width = parseInt(d3.select('body').style('width'), 10),
-            //height = parseInt(d3.select('body').style('height'), 10),
-            width=300,
+            width=350,
             height=500,
             barHeight = (height-axisMargin-margin*2)* 0.7/data1.length,
             barPadding = (height-axisMargin-margin*2)*0.3/data1.length,
             data, bar, svg, scale, xAxis, labelWidth = 0;
 
-    max = d3.max(data1, function(d) { return d.area; });
-    console.log(max);
+    max = d3.max(data1, function(d) { return d[para]; });
 
-    svg = d3.select('#hbar')
+    svg = d3.select(id)
             .append("svg")
             .attr("width", width)
             .attr("height", height);
 
+    console.log(id,svg);
     bar = svg.selectAll("g")
             .data(data1)
             .enter()
@@ -74,7 +78,7 @@ function hbarChart(csv){
             .attr("transform", "translate("+labelWidth+", 0)")
             .attr("height", barHeight)
             .attr("width", function(d){
-                return scale(d.area);
+                return scale(d[para]);
             });
 
     bar.append("text")
@@ -84,11 +88,11 @@ function hbarChart(csv){
             .attr("dy", ".35em") //vertical align middle
             .attr("text-anchor", "end")
             .text(function(d){
-                return (Math.round(d.area)+"m2");
+                return (Math.round(d[para]));
             })
             .attr("x", function(d){
                 var width = this.getBBox().width;
-                return Math.max(width + valueMargin, scale(d.area));
+                return Math.max(width + valueMargin, scale(d[para]));
             });
 
     svg.insert("g",":first-child")
@@ -112,4 +116,10 @@ function ObjArraySort(ary, key, order) {
     });
 }
     
-hbarChart("static/csv/Nantou/Zone.csv")
+hbarChart("static/csv/Nantou/Zone.csv","area",'#hbar');
+hbarChart("static/csv/Nantou/Zone.csv","Light",'#hbar1');
+hbarChart("static/csv/Nantou/Zone.csv","People",'#hbar2');
+hbarChart("static/csv/Nantou/Zone.csv","Plug",'#hbar3');
+hbarChart("static/csv/Nantou/Zone.csv","WWR",'#hbar4');
+hbarChart("static/csv/Nantou/Zone.csv","Glass",'#hbar5');
+
