@@ -1,9 +1,11 @@
-var width = 1200,
-    height = 600,
+var width = 400,
+    height = 400,
     radius = Math.min(width, height) / 2;
 
 var color = d3.scale.ordinal()
     .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+//var color = d3.schemeCategory10;
 
 var arc = d3.svg.arc()
     .outerRadius(radius - 10)
@@ -33,10 +35,12 @@ function pieChart(csv){
       };
       d.electricity= +d["Electricity [kWh]"];
       //sumArr(data);
+      //console.log(d.category)
     });
 
   if (error) throw error;
-  console.log(data);
+  var length = Object.keys(data).length;
+  console.log(length);
 
   var g = svg.selectAll(".arc")
       .data(pie(data))

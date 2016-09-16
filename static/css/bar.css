@@ -29,11 +29,11 @@
 
     text {
         font: 10px sans-serif;
-        color: white;
+        color: black;
     }
     text.value {
         font-size: 80%;
-        fill: white;
+        fill: black;
     }
 
     .axisHorizontal path{
