@@ -28,28 +28,29 @@
 <div class="container">
     <div class="row">
     <h4>Basic Information</h4>
-    <h5>Area Breakdown</h5>
+        <div id="option" class="col-md-4">
+            <input name="Lighting Power Density" 
+                   type="button" 
+                   value="Lighting"
+                   onclick="conductivity()"
+                   />
+        </div>
+
+        <div id="option" class="col-md-4">
+            <input name="People Density" 
+                   type="button" 
+                   value="Conductivity" 
+                   onclick="conductivity()" />
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12" id="hbar"></div>
     </div>
     <div class="row">
         <div class="col-md-12" id="bar"></div>
     </div>
 
-    <div class="row">
-        <div id="option" class="col-md-4">
-            <input name="Thickness" 
-                   type="button" 
-                   value="Visits"
-                   id="Visits_btn"/>
-        </div>
-
-        <div id="option" class="col-md-4">
-            <input name="Conductivity" 
-                   type="button" 
-                   value="Conductivity" 
-                   onclick="conductivity()" />
-        </div>
-    </div>
+    
 
 </div>
 

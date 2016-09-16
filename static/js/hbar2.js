@@ -27,8 +27,10 @@ function hbarChart(csv){
             data1.push(d);
           }
         });
-    //console.log(data1);
 
+    function draw(data,key){
+        
+    }
     ObjArraySort(data1,"area","DESC")
 
     console.log(data1)
@@ -123,24 +125,4 @@ function ObjArraySort(ary, key, order) {
     });
 }
     
-    /*
-    
-
-    bar
-            .on("mousemove", function(d){
-                div.style("left", d3.event.pageX+10+"px");
-                div.style("top", d3.event.pageY-25+"px");
-                div.style("display", "inline-block");
-                div.html((d.label)+"<br>"+(d.value)+"%");
-            });
-    bar
-            .on("mouseout", function(d){
-                div.style("display", "none");
-            });
-
-    svg.insert("g",":first-child")
-            .attr("class", "axisHorizontal")
-            .attr("transform", "translate(" + (margin + labelWidth) + ","+ (height - axisMargin - margin)+")")
-            .call(xAxis);
-    */
 hbarChart("static/csv/Nantou/Zone.csv")
