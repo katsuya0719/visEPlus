@@ -1,14 +1,3 @@
-data = [
-        {label:"Category 1", value:19},
-        {label:"Category 2", value:5},
-        {label:"Category 3", value:13},
-        {label:"Category 4", value:17},
-        {label:"Category 5", value:19},
-        {label:"Category 6", value:27}
-    ];
-
-    var div = d3.select("body").append("div").attr("class", "toolTip");
-
 function hbarChart(csv){
     d3.csv(csv, function(d,i) {
         var arr = Object.keys(d).map(function (key) {return d[key]});
@@ -37,7 +26,7 @@ function hbarChart(csv){
             valueMargin = 4,
             //width = parseInt(d3.select('body').style('width'), 10),
             //height = parseInt(d3.select('body').style('height'), 10),
-            width=960,
+            width=300,
             height=500,
             barHeight = (height-axisMargin-margin*2)* 0.7/data1.length,
             barPadding = (height-axisMargin-margin*2)*0.3/data1.length,
@@ -123,22 +112,4 @@ function ObjArraySort(ary, key, order) {
     });
 }
     
-    /*
-    
-    bar
-            .on("mousemove", function(d){
-                div.style("left", d3.event.pageX+10+"px");
-                div.style("top", d3.event.pageY-25+"px");
-                div.style("display", "inline-block");
-                div.html((d.label)+"<br>"+(d.value)+"%");
-            });
-    bar
-            .on("mouseout", function(d){
-                div.style("display", "none");
-            });
-    svg.insert("g",":first-child")
-            .attr("class", "axisHorizontal")
-            .attr("transform", "translate(" + (margin + labelWidth) + ","+ (height - axisMargin - margin)+")")
-            .call(xAxis);
-    */
 hbarChart("static/csv/Nantou/Zone.csv")
