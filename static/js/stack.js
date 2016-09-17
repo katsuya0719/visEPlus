@@ -30,7 +30,7 @@ var svg = d3.select("#bar").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 function barChart(csv){
-  /*
+  
   d3.tsv(csv, type, function(error, crimea) {
   if (error) throw error;
   //console.log(crimea)
@@ -39,25 +39,23 @@ function barChart(csv){
       return {x: d.date, y: d[c]};
     });
   }));
-  */
+/*
   d3.csv(csv,function(data){
-    console.log(data);
         data.forEach(function(d){
             if(d.Subcategory=="General"){
                 d.category = d[""]
             }else if(d.Subcategory!="General"){
                 d.category = d.Subcategory;
             d.electricity= +d["Electricity [kWh]"];
-        };
-        console.log(data);
+          }; 
+      });
         var data = data.filter(function(item){
                 if (item.electricity>0){
                     return true;
                     }
                 });
-
-        console.log(data);
-  });
+      console.log(data);
+*/
   console.log(layers)
   x.domain(layers[0].map(function(d) { return d.x; }));
   y.domain([0, d3.max(layers[layers.length - 1], function(d) { return d.y0 + d.y; })]).nice();
@@ -94,5 +92,5 @@ function type(d) {
   return d;
 }
 
-//barChart("static/csv/crimea.tsv")
-barChart("static/csv/energy.csv")
+barChart("static/csv/crimea.tsv")
+//barChart("static/csv/energy.csv")
