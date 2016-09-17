@@ -37,7 +37,7 @@ function pieChart(csv){
       //sumArr(data);
       //console.log(d.category)
     });
-
+    
   if (error) throw error;
   var length = Object.keys(data).length;
   console.log(length);
