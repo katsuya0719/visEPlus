@@ -102,7 +102,7 @@ function pieChart() {
                     .attr("dy", ".35em")
                     .attr("text-anchor", "middle")
                     .text(function (d) {
-                        return d.data.category;
+                        return d.data.electricity;
                     });
         }
 
@@ -170,7 +170,7 @@ function pieChart() {
 
     chart.render("#pie");
     */
-    d3.csv("static/csv/energy.csv",function(data){
+    d3.csv("static/csv/Nantou/energy.csv",function(data){
         //console.log(data);
         data.forEach(function(d){
             if(d.Subcategory=="General"){
@@ -194,7 +194,7 @@ function pieChart() {
                     return true;
                     }
                 });
-
+        console.log(data);
         var chart = pieChart()
             .radius(200)
             .innerRadius(100)

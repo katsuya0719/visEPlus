@@ -37,7 +37,6 @@ function barChart(csv){
   //console.log(crimea)
   var layers = d3.layout.stack()(causes.map(function(c) {
     return crimea.map(function(d) {
-      console.log(d);
       return {x: d.date, y: d[c]};
     });
   }));
@@ -134,4 +133,4 @@ function convertArr(obj,key){
   console.log(layers);
 };
 barChart("static/csv/crimea.tsv")
-barChart("static/csv/energy.csv")
+barChart("static/csv/Nantou/energy.csv")
