@@ -32,16 +32,19 @@ var svg = d3.select("#bar").append("svg")
 function barChart(csv){
   
   d3.tsv(csv, type, function(error, crimea) {
+  
   if (error) throw error;
   //console.log(crimea)
   var layers = d3.layout.stack()(causes.map(function(c) {
     return crimea.map(function(d) {
+      console.log(d);
       return {x: d.date, y: d[c]};
     });
   }));
-/*
+  
+  /*
   d3.csv(csv,function(data){
-        data.forEach(function(d){
+      data.forEach(function(d){
             if(d.Subcategory=="General"){
                 d.category = d[""]
             }else if(d.Subcategory!="General"){
@@ -49,13 +52,19 @@ function barChart(csv){
             d.electricity= +d["Electricity [kWh]"];
           }; 
       });
-        var data = data.filter(function(item){
-                if (item.electricity>0){
-                    return true;
-                    }
-                });
-      console.log(data);
-*/
+      
+      var data = data.filter(function(item){
+            if (item.electricity>0){
+                return true;
+                }
+            });
+      
+      //console.log(data);
+
+      convertArr(data,"electricity");
+  });
+  */
+
   console.log(layers)
   x.domain(layers[0].map(function(d) { return d.x; }));
   y.domain([0, d3.max(layers[layers.length - 1], function(d) { return d.y0 + d.y; })]).nice();
@@ -84,6 +93,7 @@ function barChart(csv){
       .attr("transform", "translate(" + width + ",0)")
       .call(yAxis);
   });
+
 };
 
 function type(d) {
@@ -92,5 +102,36 @@ function type(d) {
   return d;
 }
 
+function convertArr(obj,key){
+  arr=[];
+  obj.forEach(function(d){
+    
+    Object.keys(d).forEach(function(p){
+    //console.log(p);
+      if(p=="category"){
+        arr.push(d[p]);
+      }
+    });
+    /*
+    for (var category in obj){
+    arr.push(category);
+    };
+    */
+  });
+  
+  /*
+  var arr=[]
+  for (var category in obj){
+    arr.push(category);
+  };
+  */
+  console.log(arr);
+  var layers = d3.layout.stack()(arr.map(function(c) {
+    return obj.map(function(d,i) {
+      return {x: i, y: d[c]};
+    });
+  }));
+  console.log(layers);
+};
 barChart("static/csv/crimea.tsv")
-//barChart("static/csv/energy.csv")
+barChart("static/csv/energy.csv")
