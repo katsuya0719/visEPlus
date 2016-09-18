@@ -54,6 +54,8 @@ function pieChart() {
             renderSlices(pie, arc);
 
             renderLabels(pie, arc);
+
+            //renderLegend();
         }
 
         function renderSlices(pie, arc) {
@@ -102,10 +104,30 @@ function pieChart() {
                     .attr("dy", ".35em")
                     .attr("text-anchor", "middle")
                     .text(function (d) {
-                        return d.data.electricity;
+                        return d.data.category;
                     });
         }
 
+        function renderLegend(svg){
+            var legend = _bodyG.selectAll(".legend")
+                    .data(_colors.domain())
+                    .enter().append("g")
+                    .attr("class","legend")
+                    .attr("transform", function(d,i){ return "translate(0," +i*20+ ")"; });
+            console.log(width);
+            legend.append("rect")
+                    .attr("x", _width - 18)
+                    .attr("width", 18)
+                    .attr("height", 18)
+                    .style("fill", _colors);
+
+            legend.append("text")
+                    .attr("x", _width-24)
+                    .attr("y", 9)
+                    .attr("dy", ".35em")
+                    .style("text-anchor","end")
+                    .text(function(d){ return d; });
+        }
         _chart.width = function (w) {
             if (!arguments.length) return _width;
             _width = w;
@@ -170,6 +192,19 @@ function pieChart() {
 
     chart.render("#pie");
     */
+    function ObjArraySort(ary, key, order) {
+        var reverse = 1;
+        if(order && order.toLowerCase() == "desc") 
+            reverse = -1;
+        ary.sort(function(a, b) {
+            if(a[key] < b[key])
+                return -1 * reverse;
+            else if(a[key] == b[key])
+                return 0;
+            else
+                return 1 * reverse;
+        });
+    }
     d3.csv("static/csv/Nantou/energy.csv",function(data){
         //console.log(data);
         data.forEach(function(d){
@@ -194,6 +229,9 @@ function pieChart() {
                     return true;
                     }
                 });
+
+        ObjArraySort(data,"electricity","DESC")
+
         console.log(data);
         var chart = pieChart()
             .radius(200)
