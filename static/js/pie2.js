@@ -10,6 +10,10 @@ function pieChart() {
                 _radius = 200,
                 _innerRadius = 100;
 
+        var _div=d3.select("body").append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
+
         _chart.render = function (id) {
             if (!_svg) {
                 _svg = d3.select(id).append("svg")
@@ -30,12 +34,7 @@ function pieChart() {
 
         function renderPie() {
             var pie = d3.layout.pie() // <-A
-                    .sort(function (d) {
-                        //return d.id;
-                        return d.category;
-                    })
                     .value(function (d) {
-                        //return d.value;
                         return d.electricity;
                     });
 
@@ -106,6 +105,25 @@ function pieChart() {
                     .text(function (d) {
                         return d.data.category;
                     });
+                    //.html(function(d){
+                    //    return d.data.category+ "<br/>"+d.data.electricity;
+                    //});
+                    /*
+                    .on("mouseover",function(d){
+                        _div.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        _div.html(d.data.category + "<br/>" + d.data.electricity)
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY) + "px");
+                    })
+                    .on("mouseout", function(d){
+                            _div.transition()
+                                .duration(500)
+                                .style("opacity", 0);
+                    
+                        });
+                    */
         }
 
         function renderLegend(svg){
@@ -223,13 +241,13 @@ function pieChart() {
           d.electricity= +d["Electricity [kWh]"];
           
         });
-
+        /*
         var data = data.filter(function(item){
                 if (item.electricity>0){
                     return true;
                     }
                 });
-
+        */
         ObjArraySort(data,"electricity","DESC")
 
         console.log(data);
