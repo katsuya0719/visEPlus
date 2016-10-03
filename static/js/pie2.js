@@ -250,7 +250,6 @@ function pieChart() {
         */
         ObjArraySort(data,"electricity","DESC")
 
-        console.log(data);
         var chart = pieChart()
             .radius(200)
             .innerRadius(100)
