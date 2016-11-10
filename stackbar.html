@@ -34,17 +34,21 @@ var z = d3.scaleOrdinal()
 
 var stack = d3.stack();
 
-d3.csv("static/csv/stackbar.csv", type, function(error, data) {
+function readcsv(csv){
+  d3.csv(csv, type, function(error, data) {
   if (error) throw error;
-
+  //console.log(data[0])
   data.sort(function(a, b) { return b.total - a.total; });
-
+  //console.log(data[0])
   x.domain(data.map(function(d) { return d.State; }));
+  console.log(x.domain())
   y.domain([0, d3.max(data, function(d) { return d.total; })]).nice();
   z.domain(data.columns.slice(1));
 
+  console.log(stack.keys(data.columns.slice(1))(data));
+
   g.selectAll(".serie")
-    .data(stack.keys(data.columns.slice(1))(data))
+    .data(stack.keys(data.columns.slice(1))(data))//difficult to understand
     .enter().append("g")
       .attr("class", "serie")
       .attr("fill", function(d) { return z(d.key); })
@@ -91,12 +95,15 @@ d3.csv("static/csv/stackbar.csv", type, function(error, data) {
       .attr("dy", ".35em")
       .attr("text-anchor", "end")
       .text(function(d) { return d; });
-});
+  });
+};
 
 function type(d, i, columns) {
   for (i = 1, t = 0; i < columns.length; ++i) t += d[columns[i]] = +d[columns[i]];
   d.total = t;
   return d;
 }
+
+readcsv("static/csv/stackbar.csv")
 
 </script>
