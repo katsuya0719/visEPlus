@@ -14,36 +14,43 @@ var svg = dimple.newSvg("#bar", 590, 400);
         });
     }
 
+function arrtoObj(arr1,arr2){
+	var arr=[];
+	var obj={};
+	var len=arr1.length;
+	console.log(len);
+	for(var i=0; i<len; ++i){
+		obj["category"]=arr1[i];
+		obj["electricity"]=arr2[i];
+
+		arr.push(obj);
+	};
+	return arr
+};
 d3.csv("static/csv/Nantou/energy.csv", function (data) {
+	var arr=[];
+	var category=[];
+	var electricity=[];
 	data.forEach(function(d){
             if(d.Subcategory=="General"){
                 d.category = d[""]
             }else if(d.Subcategory!="General"){
                 d.category = d.Subcategory;
             };
-            /*
-          if (d[""]==" "){
-            d.category = d.Subcategory;
-          }else if(d[""]!=" "){
-            d.category = d[""];
-          };
-          */
+            //obj["category"]=d.category;
+            category.push(d.category);
+
           d.electricity= +d["Electricity [kWh]"];
-          
+          //obj["electricity"]=d.electricity;
+          electricity.push(d.electricity);
         });
-        /*
-        var data = data.filter(function(item){
-                if (item.electricity>0){
-                    return true;
-                    }
-                });
-        */
+	arr=arrtoObj(category,electricity);
 
-    ObjArraySort(data,"electricity","DESC");
+    //ObjArraySort(data,"electricity","DESC");
 
-    console.log(data);
-    
-    var myChart = new dimple.chart(svg, data);
+    console.log(arr);
+
+    var myChart = new dimple.chart(svg, arr);
 
     myChart.setBounds(60, 45, 510, 315)
     myChart.addCategoryAxis("x", ["Price Tier", "Channel"]);
